@@ -18,10 +18,11 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  2.010-1301, USA.
  */
 import QtQuick 2.2
-import QtQuick.Layouts 1.1
+import QtQuick.Layouts
 
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 2.0 as PlasmaComponents
+import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.components as PlasmaComponents
+import org.kde.kirigami as Kirigami
 
 Item {
     id: item
@@ -68,16 +69,16 @@ Item {
     RowLayout {
         id: row
         anchors.centerIn: parent
-        width: parent.width - units.smallSpacing
-        spacing: units.smallSpacing
+        width: parent.width - Kirigami.Units.smallSpacing
+        spacing: Kirigami.Units.smallSpacing
 
-        PlasmaCore.IconItem {
+        Kirigami.Icon {
             id: icon
             // gosh, there needs to be a Layout.fixedWidth
-            Layout.minimumWidth: 1.6 * units.iconSizes.small
-            Layout.maximumWidth: 1.6 * units.iconSizes.small
-            Layout.minimumHeight: 1.6 * units.iconSizes.small
-            Layout.maximumHeight: 1.6 * units.iconSizes.small
+            Layout.minimumWidth: 1.6 * Kirigami.Units.iconSizes.small
+            Layout.maximumWidth: 1.6 * Kirigami.Units.iconSizes.small
+            Layout.minimumHeight: 1.6 * Kirigami.Units.iconSizes.small
+            Layout.maximumHeight: 1.6 * Kirigami.Units.iconSizes.small
 
             MouseArea {
                 anchors.fill: parent
@@ -104,7 +105,7 @@ Item {
                 wrapMode: Text.NoWrap
                 elide: Text.ElideRight
                 opacity: 0.6
-                font: theme.smallestFont
+                font: Kirigami.Theme.smallFont
                 visible: text !== ""
             }
         }

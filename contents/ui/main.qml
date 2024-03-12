@@ -4,14 +4,16 @@
 // - Jakub Lipinski from https://gitlab.com/divinae/uswitch
 
 import QtQuick 2.1
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 1.4
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.plasmoid 2.0
-import org.kde.plasma.components 2.0 as PlasmaComponents
-import org.kde.plasma.extras 2.0 as PlasmaExtras
+import QtQuick.Layouts
+import QtQuick.Controls
+import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.plasmoid
+import org.kde.plasma.components 3.0 as PlasmaComponents
+import org.kde.plasma.extras as PlasmaExtras
+import org.kde.plasma.plasma5support as Plasma5Support
+import org.kde.kirigami as Kirigami
 
-Item {
+PlasmoidItem {
     id: root
     
     property bool showLogout: plasmoid.configuration.showLogout
@@ -22,13 +24,11 @@ Item {
     property bool showKexec: plasmoid.configuration.showKexec
     property bool showShutdown: plasmoid.configuration.showShutdown
 
-    Layout.fillWidth: true
-    Layout.fillHeight: true
-    width: 180
-    height: 180
+    Layout.minimumWidth: 80
+    Layout.minimumHeight: 80
 
-    Plasmoid.compactRepresentation: Item {
-        PlasmaCore.IconItem {
+    compactRepresentation: Item {
+        Kirigami.Icon {
             anchors.fill: parent
             source: "system-shutdown"
         }
@@ -38,12 +38,12 @@ Item {
             anchors.fill: parent
 
             onClicked: {
-                plasmoid.expanded = !plasmoid.expanded
+                expanded = !expanded
             }
         }
     }
 
-    PlasmaCore.DataSource {
+    Plasma5Support.DataSource {
         id: executable
         engine: "executable"
         connectedSources: []
@@ -55,11 +55,11 @@ Item {
     }
 
     function action_logOut() {
-        executable.exec('qdbus org.kde.ksmserver /KSMServer logout 0 0 2')
+        executable.exec('qdbus org.kde.Shutdown /Shutdown org.kde.Shutdown.logout')
     }
 
     function action_reBoot() {
-        executable.exec('qdbus org.kde.ksmserver /KSMServer logout 0 1 2')
+        executable.exec('qdbus org.kde.Shutdown /Shutdown org.kde.Shutdown.logoutAndReboot')
     }
 
     function action_kexec() {
@@ -71,7 +71,7 @@ Item {
     }
 
     function action_shutDown() {
-        executable.exec('qdbus org.kde.ksmserver /KSMServer logout 0 2 2')
+        executable.exec('qdbus org.kde.Shutdown /Shutdown  org.kde.Shutdown.logoutAndShutdown')
     }
     
     function action_susPend() {
@@ -82,18 +82,18 @@ Item {
          executable.exec('qdbus org.kde.Solid.PowerManagement /org/freedesktop/PowerManagement Hibernate')
     }
 
-    PlasmaComponents.Highlight {
+    PlasmaExtras.Highlight {
         id: delegateHighlight
         visible: false
-//         hovered: true
+        hovered: true
         z: -1 // otherwise it shows ontop of the icon/label and tints them slightly
     }
 
-    Plasmoid.fullRepresentation: Item {
+    fullRepresentation: Item {
         Layout.fillWidth: true
         Layout.fillHeight: true
-        Layout.preferredWidth: plasmoid.configuration.width * PlasmaCore.Units.devicePixelRatio
-        Layout.preferredHeight: plasmoid.configuration.height * PlasmaCore.Units.devicePixelRatio
+        Layout.preferredWidth: plasmoid.configuration.width
+        Layout.preferredHeight: plasmoid.configuration.height
 
         ColumnLayout {
             id: column

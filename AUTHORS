@@ -1,6 +1,10 @@
 ------------------------ Compact Shutdown Widget ------------------------
 Alexey Varfolomeev - https://github.com/varlesh/org.kde.plasma.compact-shutdown
 
+________________________ Port to Plasma 6 _______________________________
+Kevin Niedermaier - https://github.com/sampletext5/org.kde.plasma.compact-shutdown
+
+
 Used sources & ideas:
 - Michail Vourlakos from https://github.com/psifidotos/applet-latte-sidebar-button
 - Jakub Lipinski from https://gitlab.com/divinae/uswitch
